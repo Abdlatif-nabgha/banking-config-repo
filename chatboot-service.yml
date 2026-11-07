@@ -4,9 +4,8 @@ server:
 spring:
   ai:
     openai:
-      base-url: https://generativelanguage.googleapis.com/v1beta/openai
+      base-url: https://api.groq.com/openai/v1
       api-key: ${OPENAI_API_KEY}
       chat:
-        completions-path: /chat/completions
         options:
-          model: gemini-2.5-flash
+          model: llama-3.3-70b-versatile
