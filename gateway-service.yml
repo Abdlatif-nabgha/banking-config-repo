@@ -23,6 +23,11 @@ spring:
               predicates:
                 - Path=/api/v1/transactions/**
 
+            - id: chatboot-service
+              uri: lb://chatboot-service
+              predicates:
+                - Path=/chat/**, /api/v1/chat/**
+
             # ── SWAGGER / OPENAPI DOC ROUTES ──────────────────────────────
             - id: customer-service-docs
               uri: lb://customer-service
@@ -45,6 +50,13 @@ spring:
               filters:
                 - RewritePath=/transaction-service/(?<segment>.*), /$\{segment}
 
+            - id: chatboot-service-docs
+              uri: lb://chatboot-service
+              predicates:
+                - Path=/chatboot-service/v3/api-docs/**
+              filters:
+                - RewritePath=/chatboot-service/(?<segment>.*), /$\{segment}
+
 # ── CENTRALIZED SWAGGER UI DROPDOWN ────────────────────────────────────────
 springdoc:
   swagger-ui:
@@ -56,3 +68,5 @@ springdoc:
         url: /account-service/v3/api-docs
       - name: 3. Transaction Service API
         url: /transaction-service/v3/api-docs
+      - name: 4. Chatbot Service API
+        url: /chatboot-service/v3/api-docs
