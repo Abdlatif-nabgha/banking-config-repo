@@ -4,7 +4,9 @@ server:
 spring:
   ai:
     openai:
+      base-url: https://generativelanguage.googleapis.com/v1beta/openai
       api-key: ${OPENAI_API_KEY}
       chat:
+        completions-path: /chat/completions
         options:
-          model: gpt-4o
+          model: gemini-2.5-flash
