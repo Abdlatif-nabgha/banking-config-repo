@@ -1,0 +1,27 @@
+# ── 1. CONFIGURATION COMMUNE EUREKA (Pour que tous les services se connectent à l'annuaire)
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    enabled: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+# ── 2. CONFIGURATION COMMUNE ACTUATOR (Monitoring et Rechargement à chaud)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,refresh,circuitbreakers
+  endpoint:
+    health:
+      show-details: always
+
+# ── 3. CONFIGURATION COMMUNE JPA / HIBERNATE (Formatage propre des logs SQL)
+spring:
+  jpa:
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true

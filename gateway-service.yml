@@ -1,0 +1,23 @@
+server:
+  port: 8888
+
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: customer-service
+              uri: lb://customer-service
+              predicates:
+                - Path=/api/v1/customers/**
+
+            - id: account-service
+              uri: lb://account-service
+              predicates:
+                - Path=/api/v1/accounts/**
+
+            - id: transaction-service
+              uri: lb://transaction-service
+              predicates:
+                - Path=/api/v1/transactions/**

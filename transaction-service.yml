@@ -1,0 +1,31 @@
+server:
+  port: 8082
+
+account-service:
+  url: http://localhost:8081
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5434/transactiondb
+    username: transaction_user
+    password: transaction_password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      account-service:
+        register-health-indicator: true
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10s
+        permitted-number-of-calls-in-half-open-state: 2
+        automatic-transition-from-open-to-half-open-enabled: true
+        record-exceptions:
+          - com.bank.transactionservice.domain.exception.AccountServiceUnavailableException

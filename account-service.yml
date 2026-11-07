@@ -1,0 +1,39 @@
+server:
+  port: 8081
+
+customer-service:
+  url: http://localhost:8080
+
+spring:
+  cloud:
+    openfeign:
+      client:
+        config:
+          customer-service:
+            connect-timeout: 1000
+            read-timeout: 2000
+  datasource:
+    url: jdbc:postgresql://localhost:5433/accountdb
+    username: account_user
+    password: account_password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+    locations:
+      - classpath:db/migration
+    baseline-on-migrate: true
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      customer-service:
+        register-health-indicator: true
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10s
+        permittedNumberOfCallsInHalfOpenState: 2
+        automaticTransitionFromOpenToHalfOpenEnabled: true
