@@ -23,6 +23,9 @@ management:
 
 # ── 4. CONFIGURATION COMMUNE JPA / HIBERNATE (Formatage propre des logs SQL)
 spring:
+  threads:
+    virtual:
+      enabled: true
   jpa:
     open-in-view: false
     show-sql: false
