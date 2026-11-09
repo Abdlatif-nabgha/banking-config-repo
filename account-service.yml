@@ -5,6 +5,10 @@ customer-service:
   url: http://localhost:8080
 
 spring:
+  ai:
+    mcp:
+      server:
+        protocol: streamable
   cloud:
     openfeign:
       client:

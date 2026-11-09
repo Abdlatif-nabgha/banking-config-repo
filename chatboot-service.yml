@@ -16,3 +16,6 @@ spring:
             customer:
               url: http://localhost:8080
               endpoint: /mcp
+            account:
+              url: http://localhost:8081
+              endpoint: /mcp
